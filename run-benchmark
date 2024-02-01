@@ -1,0 +1,3 @@
+#!/bin/bash
+exec hyperfine --warmup 2 --prepare './random-edit src/main.rs' 'cargo run'
+
