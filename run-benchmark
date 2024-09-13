@@ -1,3 +1,10 @@
 #!/bin/bash
-exec hyperfine --warmup 2 --prepare './random-edit src/main.rs' 'cargo run'
+
+LINKERS=( ld.bfd ld.lld mold `readlink -f wild` )
+
+for linker in ${LINKERS[@]}
+do
+  CARGO_CONFIG="--config \"target.x86_64-unknown-linux-gnu.linker = 'clang'\" --config \"target.x86_64-unknown-linux-gnu.rustflags = ['-C', 'link-arg=--ld-path=${linker}']\""
+  hyperfine -n ${linker} --warmup 2 --prepare './random-edit src/number.txt' "cargo run $CARGO_CONFIG"
+done
 

@@ -1,13 +1,7 @@
 #!/bin/bash
 if [ $# -ne 1 ]; then
-  echo "Usage: $0 {file to edit}" >&1
-  echo "The file should contain vvv = some-number" >&2
+  echo "Usage: $0 {file}" >&1
   exit 1
 fi
 
-if [ ! -f "$1" ]; then
-  echo "$1 doesn't exist" >&2
-  exit 1
-fi
-
-exec perl -pi -e "s/vvv = \d+/vvv = ${RANDOM}/" "$1"
+echo $RANDOM > "$1"
