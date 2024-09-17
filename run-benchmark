@@ -1,3 +1,20 @@
 #!/bin/bash
-exec hyperfine --warmup 2 --prepare './random-edit src/main.rs' 'cargo run'
 
+CONFIG=".cargo/config.toml"
+
+for linker in "ld.bfd" "ld.gold --threads" "ld.lld" "mold --no-fork" "`readlink -f wild`"
+do
+  set -- $linker
+  echo "[target.x86_64-unknown-linux-gnu]" > $CONFIG
+  echo "linker = 'clang'" >> $CONFIG
+  if ! [ -z "$2" ]
+  then
+    EXTRA_ARGS=", '-C', 'link-arg=-Wl,$2'"
+  else
+    EXTRA_ARGS=""
+  fi
+  echo "rustflags = [ '-C', 'link-arg=--ld-path=$1'${EXTRA_ARGS} ]" >> $CONFIG
+  $1 -v
+  hyperfine -n $1 --warmup 2 --prepare './random-edit src/number.txt' "cargo run"
+  du -hs target/debug/warm-build-benchmark
+done

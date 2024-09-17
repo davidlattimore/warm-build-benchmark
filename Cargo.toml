@@ -4,10 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.79"
-polars = { version = "0.37.0", features = [ "lazy", "csv", "ipc", "parquet", "streaming", "random", "ndarray", "temporal", "timezones", "strings", "object", "serde", "json", "decompress", "cse", "serde-lazy", "regex", "dot_diagram" ] }
-
-[profile.dev]
-debug = 0
-strip = "debuginfo"
-
+anyhow = "1.0.88"
+polars = { version = "0.34.1", features = [ "lazy", "csv", "ipc", "parquet", "streaming", "random", "ndarray", "temporal", "timezones", "strings", "object", "serde", "json", "decompress", "cse", "serde-lazy", "dot_diagram" ] }
