@@ -9,8 +9,7 @@ To run the benchmark, run:
 ./run-benchmark
 ```
 
-The accompanying blog post is (Speeding up Rust edit-build-run
-cycle)[https://davidlattimore.github.io/working-on-rust-iteration-time.html].
+The accompanying blog post is [Speeding up Rust edit-build-run cycle](https://davidlattimore.github.io/working-on-rust-iteration-time.html).
 
 ## Pre-requisites
 
